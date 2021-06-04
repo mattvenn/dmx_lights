@@ -9,6 +9,7 @@ class MainWindow(QtWidgets.QMainWindow):
         super(self.__class__, self).__init__()
 
         uic.loadUi('lights/mainwindow.ui', self)
+        self.setWindowTitle("DMX")
 
         self.left_r.valueChanged.connect(lambda: self.update_lights())
         self.left_g.valueChanged.connect(lambda: self.update_lights())
@@ -32,7 +33,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.lights = []
         # Define DMX lights
         for address in range(1, self.num_chan, 3):
-            print("setting up 1 x 3 channel light at address %d" % address)
+#            print("setting up 1 x 3 channel light at address %d" % address)
             light = DMXLight3Slot(address=address)
             self.universe.add_light(light)
             self.lights.append(light)

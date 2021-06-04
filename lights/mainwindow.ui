@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>550</width>
-    <height>283</height>
+    <width>250</width>
+    <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,6 +19,9 @@
      <widget class="QCheckBox" name="link">
       <property name="text">
        <string>link</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
       </property>
      </widget>
     </item>
@@ -59,6 +62,19 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
        <widget class="QSlider" name="right_r">
         <property name="maximum">
          <number>255</number>
@@ -97,7 +113,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>550</width>
+     <width>250</width>
      <height>26</height>
     </rect>
    </property>
