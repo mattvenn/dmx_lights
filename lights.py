@@ -18,6 +18,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.right_g.valueChanged.connect(lambda: self.update_lights())
         self.right_b.valueChanged.connect(lambda: self.update_lights())
 
+        # mem buttons
+        self.mem_z2a.clicked.connect(lambda: self.load("z2a"))
+        self.mem_yosys.clicked.connect(lambda: self.load("yosys"))
+
         # dmx updates
         self.dmx_timer = QtCore.QTimer(self)
         self.dmx_timer.start(10) 
@@ -40,6 +44,28 @@ class MainWindow(QtWidgets.QMainWindow):
             self.universe.add_light(light)
             self.lights.append(light)
 
+    def load(self, mem):
+        if(mem == 'z2a'):
+            self.link.setChecked(0)
+
+            self.left_r.setValue(0);
+            self.left_g.setValue(0);
+            self.left_b.setValue(100);
+
+            self.right_r.setValue(0);
+            self.right_g.setValue(117);
+            self.right_b.setValue(18);
+
+        if(mem == 'yosys'):
+            self.link.setChecked(0)
+            self.left_r.setValue(180);
+            self.left_g.setValue(0);
+            self.left_b.setValue(44);
+
+            self.right_r.setValue(24);
+            self.right_g.setValue(0);
+            self.right_b.setValue(96);
+
     def update_lights(self):
         if self.link.isChecked():
             self.right_r.setValue(self.left_r.value())
@@ -47,7 +73,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.right_b.setValue(self.left_b.value())
 
         # interpolate from left to right across all lights
-        for num, light in enumerate(self.lights):
+        for num, light in enumerate(reversed(self.lights)):
             R = int(self.left_r.value() - num * ((self.left_r.value() - self.right_r.value()))/(self.num_segs-1))
             G = int(self.left_g.value() - num * ((self.left_g.value() - self.right_g.value()))/(self.num_segs-1))
             B = int(self.left_b.value() - num * ((self.left_b.value() - self.right_b.value()))/(self.num_segs-1))
