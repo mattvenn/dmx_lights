@@ -48,7 +48,7 @@ class MainWindow(QtWidgets.QMainWindow):
             R = int(self.left_r.value() - num * ((self.left_r.value() - self.right_r.value()))/self.num_chan*3)
             G = int(self.left_g.value() - num * ((self.left_g.value() - self.right_g.value()))/self.num_chan*3)
             B = int(self.left_b.value() - num * ((self.left_b.value() - self.right_b.value()))/self.num_chan*3)
-            print(num, R, G, B)
+            #print(num, R, G, B)
             light.set_colour(Colour(R,G,B))
 
     def update_dmx(self):
