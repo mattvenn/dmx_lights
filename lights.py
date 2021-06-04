@@ -28,7 +28,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.universe = DMXUniverse()
 
         # 2 x 24 channel lights chained, with first starting at address 1 and 2nd at 25
+        # in 24 channel mode, have 8 segments with R, G and B.
         self.num_chan = 48
+        self.num_segs = self.num_chan / 3
 
         self.lights = []
         # Define DMX lights
@@ -46,9 +48,9 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # interpolate from left to right across all lights
         for num, light in enumerate(self.lights):
-            R = int(self.left_r.value() - num * ((self.left_r.value() - self.right_r.value()))/self.num_chan*3)
-            G = int(self.left_g.value() - num * ((self.left_g.value() - self.right_g.value()))/self.num_chan*3)
-            B = int(self.left_b.value() - num * ((self.left_b.value() - self.right_b.value()))/self.num_chan*3)
+            R = int(self.left_r.value() - num * ((self.left_r.value() - self.right_r.value()))/(self.num_segs-1))
+            G = int(self.left_g.value() - num * ((self.left_g.value() - self.right_g.value()))/(self.num_segs-1))
+            B = int(self.left_b.value() - num * ((self.left_b.value() - self.right_b.value()))/(self.num_segs-1))
             #print(num, R, G, B)
             light.set_colour(Colour(R,G,B))
 
