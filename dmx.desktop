@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Exec=/home/matt/work/dmx_lighting/light.sh
+Name=DMX
+Comment=DMX
+Icon=/home/matt/work/dmx_lighting/icon.png
