@@ -62,12 +62,9 @@
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="link">
+       <widget class="QPushButton" name="mem_red">
         <property name="text">
-         <string>link</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
+         <string>Red</string>
         </property>
        </widget>
       </item>
@@ -75,6 +72,23 @@
        <widget class="QPushButton" name="mem_yosys">
         <property name="text">
          <string>Yosys</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="init_cam">
+        <property name="text">
+         <string>Init cam</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="link">
+        <property name="text">
+         <string>link</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
         </property>
        </widget>
       </item>

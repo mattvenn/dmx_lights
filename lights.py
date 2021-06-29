@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from PyQt5 import QtWidgets, uic, QtCore, QtGui
-import sys
+import sys, os
 from dmx import Colour, DMXLight, DMXInterface, DMXLight3Slot, DMXUniverse
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -10,6 +10,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         uic.loadUi('lights/mainwindow.ui', self)
         self.setWindowTitle("DMX")
+        self.setWindowIcon(QtGui.QIcon("icon.png"));
 
         self.left_r.valueChanged.connect(lambda: self.update_lights())
         self.left_g.valueChanged.connect(lambda: self.update_lights())
@@ -21,6 +22,8 @@ class MainWindow(QtWidgets.QMainWindow):
         # mem buttons
         self.mem_z2a.clicked.connect(lambda: self.load("z2a"))
         self.mem_yosys.clicked.connect(lambda: self.load("yosys"))
+        self.mem_red.clicked.connect(lambda: self.load("red"))
+        self.init_cam.clicked.connect(lambda: self.init_camera())
 
         # dmx updates
         self.dmx_timer = QtCore.QTimer(self)
@@ -44,6 +47,21 @@ class MainWindow(QtWidgets.QMainWindow):
             self.universe.add_light(light)
             self.lights.append(light)
 
+    def init_camera(self):
+        print("init cam")
+        webcamdevice="/dev/video0"
+        cam_settings = {
+            'power_line_frequency': 1,
+            'exposure_auto': 1,
+            'gain' : 5,
+            'white_balance_temperature_auto': 0,
+            'white_balance_temperature' : 5500,
+            'exposure_absolute': 400,
+        }
+        for key, value in cam_settings.items():
+            print("setting %s to %d" % (key, value))
+            os.system("v4l2-ctl -d %s --set-ctrl=%s=%d" % (webcamdevice, key, value))
+
     def load(self, mem):
         if(mem == 'z2a'):
             self.link.setChecked(0)
@@ -65,6 +83,12 @@ class MainWindow(QtWidgets.QMainWindow):
             self.right_r.setValue(24);
             self.right_g.setValue(0);
             self.right_b.setValue(96);
+
+        if(mem == 'red'):
+            self.link.setChecked(1)
+            self.left_r.setValue(255);
+            self.left_g.setValue(0);
+            self.left_b.setValue(0);
 
     def update_lights(self):
         if self.link.isChecked():
