@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>284</height>
+    <width>457</width>
+    <height>291</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -55,30 +55,65 @@
        <number>0</number>
       </property>
       <item>
-       <widget class="QPushButton" name="mem_z2a">
+       <widget class="QLabel" name="label">
         <property name="text">
-         <string>Z2A</string>
+         <string>Presets</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="mem_red">
+       <widget class="QComboBox" name="preset_list"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="button_delete">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
-         <string>Red</string>
+         <string>delete preset</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="mem_yosys">
+       <widget class="QPushButton" name="button_update">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
-         <string>Yosys</string>
+         <string>update preset</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="init_cam">
+       <widget class="QPushButton" name="button_add">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
-         <string>Init cam</string>
+         <string>add preset</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="preset_name"/>
+      </item>
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
         </property>
        </widget>
       </item>
@@ -130,7 +165,6 @@
     </item>
    </layout>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>
