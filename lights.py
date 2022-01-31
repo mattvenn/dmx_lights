@@ -55,7 +55,7 @@ class MainWindow(QtWidgets.QMainWindow):
             'exposure_auto': 1,
             'gain' : 5,
             'white_balance_temperature_auto': 0,
-            'white_balance_temperature' : 5500,
+            'white_balance_temperature' : 5000,
             'exposure_absolute': 400,
         }
         for key, value in cam_settings.items():
