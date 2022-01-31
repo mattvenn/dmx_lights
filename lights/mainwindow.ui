@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>284</height>
+    <width>576</width>
+    <height>380</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,9 +16,12 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout_3">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QSlider" name="left_r">
+     <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,0,0">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <item row="1" column="2">
+       <widget class="QSlider" name="right_b">
         <property name="maximum">
          <number>255</number>
         </property>
@@ -27,8 +30,8 @@
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QSlider" name="left_g">
+      <item row="1" column="0">
+       <widget class="QSlider" name="right_r">
         <property name="maximum">
          <number>255</number>
         </property>
@@ -37,13 +40,34 @@
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QSlider" name="left_b">
+      <item row="1" column="1">
+       <widget class="QSlider" name="right_g">
         <property name="maximum">
          <number>255</number>
         </property>
         <property name="orientation">
          <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>G</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_6">
+        <property name="text">
+         <string>R</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string>B</string>
         </property>
        </widget>
       </item>
@@ -55,30 +79,65 @@
        <number>0</number>
       </property>
       <item>
-       <widget class="QPushButton" name="mem_z2a">
+       <widget class="QLabel" name="label">
         <property name="text">
-         <string>Z2A</string>
+         <string>Presets</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="mem_red">
+       <widget class="QComboBox" name="preset_list"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="button_delete">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
-         <string>Red</string>
+         <string>delete preset</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="mem_yosys">
+       <widget class="QPushButton" name="button_update">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
-         <string>Yosys</string>
+         <string>update preset</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="init_cam">
+       <widget class="QPushButton" name="button_add">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
-         <string>Init cam</string>
+         <string>add preset</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="preset_name"/>
+      </item>
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
         </property>
        </widget>
       </item>
@@ -95,9 +154,15 @@
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <widget class="QSlider" name="right_r">
+     <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,0,0" rowminimumheight="0,0">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="spacing">
+       <number>7</number>
+      </property>
+      <item row="1" column="2">
+       <widget class="QSlider" name="left_g">
         <property name="maximum">
          <number>255</number>
         </property>
@@ -106,8 +171,8 @@
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QSlider" name="right_g">
+      <item row="1" column="0">
+       <widget class="QSlider" name="left_r">
         <property name="maximum">
          <number>255</number>
         </property>
@@ -116,13 +181,34 @@
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QSlider" name="right_b">
+      <item row="1" column="3">
+       <widget class="QSlider" name="left_b">
         <property name="maximum">
          <number>255</number>
         </property>
         <property name="orientation">
          <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>B</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>G</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>R</string>
         </property>
        </widget>
       </item>
@@ -130,7 +216,6 @@
     </item>
    </layout>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>
