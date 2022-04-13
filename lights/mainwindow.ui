@@ -122,6 +122,20 @@
        <widget class="QLineEdit" name="preset_name"/>
       </item>
       <item>
+       <widget class="QPushButton" name="button_up">
+        <property name="text">
+         <string>Up</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="button_down">
+        <property name="text">
+         <string>Down</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <spacer name="verticalSpacer">
         <property name="orientation">
          <enum>Qt::Vertical</enum>

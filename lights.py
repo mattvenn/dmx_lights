@@ -24,6 +24,7 @@ class Preset(object):
 
 class MainWindow(QtWidgets.QMainWindow):
 
+
     def __init__(self):
         super(self.__class__, self).__init__()
 
@@ -45,6 +46,13 @@ class MainWindow(QtWidgets.QMainWindow):
         self.button_delete.clicked.connect(self.delete_preset)
         self.button_update.clicked.connect(self.update_preset)
     
+        # motor
+        self.button_up.pressed.connect(self.on_button_up_press)
+        self.button_up.released.connect(self.on_button_up_release)
+        self.button_down.pressed.connect(self.on_button_down_press)
+        self.button_down.released.connect(self.on_button_down_release)
+        
+        # preset text
         self.preset_name.textChanged.connect(self.preset_name_changed)
         self.preset_list.currentIndexChanged.connect(self.preset_changed)
         self.preset_list.activated.connect(self.preset_changed)
@@ -70,6 +78,11 @@ class MainWindow(QtWidgets.QMainWindow):
             light = DMXLight3Slot(address=address)
             self.universe.add_light(light)
             self.lights.append(light)
+        
+        # motor
+        print("setting up dmx motor at address %d" % (self.num_chan+1))
+        self.motor_dmx = DMXLight3Slot(address=self.num_chan+1)
+        self.universe.add_light(self.motor_dmx)
 
         self.update_lights()
 
@@ -146,6 +159,20 @@ class MainWindow(QtWidgets.QMainWindow):
         self.presets[index] = preset
         print(self.presets[index])
         self.update_preset_combo_box()
+
+    def on_button_up_release(self):
+        self.motor_dmx.set_colour(Colour(0,0,0))
+
+    def on_button_down_release(self):
+        self.motor_dmx.set_colour(Colour(0,0,0))
+
+    def on_button_up_press(self):
+        # up = 255, down = 0, led = on
+        self.motor_dmx.set_colour(Colour(255,0,255))
+
+    def on_button_down_press(self):
+        # up = 0, down = 255, led = on
+        self.motor_dmx.set_colour(Colour(0,255,255))
 
     def update_lights(self):
         self.button_update.setEnabled(True)
