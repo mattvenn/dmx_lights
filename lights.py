@@ -5,6 +5,7 @@ import sys, os
 from dmx import Colour, DMXLight, DMXInterface, DMXLight3Slot, DMXUniverse
 
 PRESET_FILE = "presets.pkl"
+MOTOR_SPEED = 30
 
 class Preset(object):
 
@@ -168,11 +169,11 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def on_button_up_press(self):
         # up = 255, down = 0, led = on
-        self.motor_dmx.set_colour(Colour(255,0,255))
+        self.motor_dmx.set_colour(Colour(MOTOR_SPEED,0,255))
 
     def on_button_down_press(self):
         # up = 0, down = 255, led = on
-        self.motor_dmx.set_colour(Colour(0,255,255))
+        self.motor_dmx.set_colour(Colour(0,MOTOR_SPEED,255))
 
     def update_lights(self):
         self.button_update.setEnabled(True)
