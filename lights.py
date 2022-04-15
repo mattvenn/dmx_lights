@@ -3,9 +3,16 @@ from PyQt5 import QtWidgets, uic, QtCore, QtGui
 import pickle
 import sys, os
 from dmx import Colour, DMXLight, DMXInterface, DMXLight3Slot, DMXUniverse
+from enum import Enum
+
+class MOTOR_DIR(Enum):
+    OFF = 0
+    UP = 1
+    DOWN = 2
 
 PRESET_FILE = "presets.pkl"
-MOTOR_SPEED = 30
+MOTOR_SPEED = 250
+MOTOR_ACCEL = 20
 
 class Preset(object):
 
@@ -52,6 +59,12 @@ class MainWindow(QtWidgets.QMainWindow):
         self.button_up.released.connect(self.on_button_up_release)
         self.button_down.pressed.connect(self.on_button_down_press)
         self.button_down.released.connect(self.on_button_down_release)
+        self.motor_timer = QtCore.QTimer(self)
+        self.motor_timer.start(100) 
+        self.motor_timer.timeout.connect(self.motor_speed_control)
+        self.motor_val = 0
+        self.motor_amount = 0
+        self.motor_dir = MOTOR_DIR.OFF
         
         # preset text
         self.preset_name.textChanged.connect(self.preset_name_changed)
@@ -161,19 +174,36 @@ class MainWindow(QtWidgets.QMainWindow):
         print(self.presets[index])
         self.update_preset_combo_box()
 
+    # do some nice smoothing
+    def motor_speed_control(self):
+        self.motor_val += self.motor_amount
+
+        if self.motor_val >= MOTOR_SPEED:
+            self.motor_val = MOTOR_SPEED
+        if self.motor_val < 0:
+            self.motor_val = 0
+
+        if self.motor_dir == MOTOR_DIR.UP:
+            # up, down, led
+            self.motor_dmx.set_colour(Colour(self.motor_val, 0 ,255))
+        elif self.motor_dir == MOTOR_DIR.DOWN:
+            self.motor_dmx.set_colour(Colour(0, self.motor_val, 255))
+        else:
+            self.motor_dmx.set_colour(Colour(0, 0, 0))
+
     def on_button_up_release(self):
-        self.motor_dmx.set_colour(Colour(0,0,0))
+        self.motor_amount = - MOTOR_ACCEL
 
     def on_button_down_release(self):
-        self.motor_dmx.set_colour(Colour(0,0,0))
+        self.motor_amount = - MOTOR_ACCEL
 
     def on_button_up_press(self):
-        # up = 255, down = 0, led = on
-        self.motor_dmx.set_colour(Colour(MOTOR_SPEED,0,255))
+        self.motor_dir = MOTOR_DIR.UP
+        self.motor_amount = MOTOR_ACCEL
 
     def on_button_down_press(self):
-        # up = 0, down = 255, led = on
-        self.motor_dmx.set_colour(Colour(0,MOTOR_SPEED,255))
+        self.motor_dir = MOTOR_DIR.DOWN
+        self.motor_amount = MOTOR_ACCEL
 
     def update_lights(self):
         self.button_update.setEnabled(True)
@@ -195,9 +225,12 @@ class MainWindow(QtWidgets.QMainWindow):
         self.interface.set_frame(self.universe.serialise())
         self.interface.send_update()
 
-
     def closeEvent(self, event):
         self.save_presets()
+        # ensure motor is off
+        self.motor_dmx.set_colour(Colour(0, 0, 0))
+        self.interface.set_frame(self.universe.serialise())
+        self.interface.send_update()
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
